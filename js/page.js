@@ -1,23 +1,31 @@
 // Accessing the objects
-var ctx = document.getElementById('monthlySales').getContext('2d');
-var pieCtx = document.getElementById('deptSales').getContext('2d');
-var yearlyLabel = document.getElementById('yearlyTotal');
-var newAmount = document.getElementById('itemAmount');
-var newMonth = document.getElementById('monthId');
-let hikingRadio = document.getElementById('hiking');
-let runningRadio = document.getElementById('running');
-let huntingRadio = document.getElementById('hunting');
+var ctx = document.getElementById("monthlySales").getContext("2d");
+var pieCtx = document.getElementById("deptSales").getContext("2d");
+var yearlyLabel = document.getElementById("yearlyTotal");
+var newAmount = document.getElementById("itemAmount");
+var newMonth = document.getElementById("monthId");
+let hikingRadio = document.getElementById("hiking");
+let runningRadio = document.getElementById("running");
+let huntingRadio = document.getElementById("hunting");
 
 // Monthly Totals
 var yearlyTotal = 0;
 
+const monthlySales = new Map();
+
 // Add Sales
-function addSale(){
-	
+function addSale() {
+  monthlySales.set(1, newAmount.value);
+  console.log(monthlySales);
 }
 
-function findSale(){
+function findSale() {
+  console.log(monthlySales.get(1));
+}
 
+function fillValue() {
+  monthlySales.delete(1);
+  console.log(monthlySales);
 }
 
 // Bar chart
@@ -64,6 +72,6 @@ function findSale(){
 //         }]
 //     },
 //     options: {
-        
+
 //     }
 // })
