@@ -15,45 +15,64 @@ const monthlySales = new Map();
 
 // Add Sales
 function addSale() {
-  monthlySales.set(1, newAmount.value);
-  console.log(monthlySales);
+  monthlySales.set(newMonth.value, parseInt(newAmount.value));
+
+  // Update our labels
+  monthlySalesChart.data.labels = Array.from(monthlySales.keys());
+  monthlySalesChart.update();
+
+  yearlyTotal = 0;
+
+  monthlySalesChart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+
+  for (let amount of monthlySales.values()) {
+    yearlyTotal += amount;
+    yearlyLabel.innerHTML = yearlyTotal;
+
+    monthlySalesChart.data.datasets.forEach((dataset) => {
+      dataset.data.push(amount);
+    });
+  }
+
+  monthlySalesChart.update();
 }
 
-function findSale() {
-  console.log(monthlySales.get(1));
-}
+function findSale() {}
 
-function fillValue() {
-  monthlySales.delete(1);
-  console.log(monthlySales);
-}
+function fillValue() {}
 
 // Bar chart
-// var monthlySalesChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: [],
-//         datasets: [{
-//             label: '# of Sales',
-//             data: [],
-//             backgroundColor: [
-//                 'rgba(238, 184, 104, 1)',
-//                 'rgba(75, 166, 223, 1)',
-//                 'rgba(239, 118, 122, 1)',
-//             ],
-//             borderWidth: 0
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
+let monthlySalesChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "# of Sales",
+        data: [],
+        backgroundColor: [
+          "rgba(238, 184, 104, 1)",
+          "rgba(75, 166, 223, 1)",
+          "rgba(239, 118, 122, 1)",
+        ],
+        borderWidth: 0,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  },
+});
 
 // Pie Chart
 // var deptSalesChart = new Chart(pieCtx, {
